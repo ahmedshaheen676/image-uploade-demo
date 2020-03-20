@@ -1,0 +1,22 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>All Images</title>
+</head>
+<body>
+<div data-th-each="imageFile : ${imageFileList}">
+    <div class="card">
+        <img th:src="${imageFile.url}" alt="Avatar" style="width:100%">
+        <div class="container">
+            <h4><b>John Doe</b></h4>
+            <p>Architect & Engineer</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

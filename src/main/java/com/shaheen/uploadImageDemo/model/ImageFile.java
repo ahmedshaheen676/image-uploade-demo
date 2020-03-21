@@ -15,7 +15,6 @@ public class ImageFile {
     @Transient
     private byte[] content;
 
-    @Transient
     private String imageType;
 
     public ImageFile() {

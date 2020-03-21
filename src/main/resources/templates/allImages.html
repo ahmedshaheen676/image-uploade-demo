@@ -5,15 +5,16 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}">
+
     <title>All Images</title>
 </head>
 <body>
 <div data-th-each="imageFile : ${imageFileList}">
     <div class="card">
-        <img th:src="${imageFile.url}" alt="Avatar" style="width:100%">
+        <img alt="Avatar" style="width:100%" th:src="@{/image/byId(imageId=${imageFile.getId()})}">
         <div class="container">
-            <h4><b>John Doe</b></h4>
-            <p>Architect & Engineer</p>
+            <h4><b th:text="${imageFile.name}"></b></h4>
         </div>
     </div>
 </div>

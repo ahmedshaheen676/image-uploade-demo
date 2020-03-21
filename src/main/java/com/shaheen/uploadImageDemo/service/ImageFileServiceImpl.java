@@ -8,7 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +48,7 @@ public class ImageFileServiceImpl implements ImageFileService {
 
     }
 
+
     /**
      * map MultipartFile to imageFile
      *
@@ -57,16 +57,27 @@ public class ImageFileServiceImpl implements ImageFileService {
      */
     private ImageFile getImageFile(MultipartFile multipartImageFile) {
         ImageFile imageFile = new ImageFile();
-
-        imageFile.setName(multipartImageFile.getOriginalFilename());
-        imageFile.setImageType(multipartImageFile.getContentType());
+        String imageType = getImageType(multipartImageFile.getOriginalFilename());
+        String imageName = getImageName(multipartImageFile.getOriginalFilename());
         try {
+            imageFile.setName(imageName);
+            imageFile.setImageType(imageType);
             imageFile.setContent(multipartImageFile.getBytes());
-            String path = "images/" + imageFile.getName() + LocalDateTime.now();
+            String path = "images/" + imageName + "_" + System.currentTimeMillis() + "." + imageType;
             imageFile.setUrl(path);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return imageFile;
+    }
+
+    private String getImageType(String originalFileName) {
+        int indexOfImageType = originalFileName.lastIndexOf(".");
+        return originalFileName.substring(indexOfImageType + 1);
+    }
+
+    private String getImageName(String originalFileName) {
+        int indexOfImageType = originalFileName.lastIndexOf(".");
+        return originalFileName.substring(0, indexOfImageType);
     }
 }
